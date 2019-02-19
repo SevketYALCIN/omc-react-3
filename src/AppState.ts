@@ -1,4 +1,4 @@
-import { login } from "./redux/actions/userActions"
+import { login, addToLibrary } from "./redux/actions/userActions"
 import { UserState } from "./redux/reducers/userReducer";
 
 export interface AppState {
@@ -14,8 +14,10 @@ export interface AppProps {
   user: string
 }
 
-export interface Gif extends UserState {
+export interface Gif {
   id: string;
   title: string;
   embed_url: string;
+  readonly user: string;
+  readonly addToLibrary: typeof addToLibrary;
 }

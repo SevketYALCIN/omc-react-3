@@ -119,12 +119,6 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch<UsersAction>) => {
-//   login: (username: string) => {
-//     return dispatch(login(username));
-//   };
-// };
-
 export const mapDispatchToProps = (dispatch: Dispatch<UsersAction>) =>
   bindActionCreators(
     {
