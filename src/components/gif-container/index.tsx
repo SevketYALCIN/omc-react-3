@@ -3,7 +3,7 @@ import { Gif } from '../../AppState';
 import { Button } from '../../../node_modules/semantic-ui-react';
 import { connect } from 'react-redux';
 import { UserState, UsersAction } from '../../redux/reducers/userReducer';
-import { addToLibrary } from '../../redux/actions/userActions';
+import { addToLibrary, removeFromLibrary } from '../../redux/actions/userActions';
 import { Dispatch, bindActionCreators } from '../../../node_modules/redux';
 
 const GifContainer = (props: Gif) => (
@@ -17,20 +17,23 @@ const GifContainer = (props: Gif) => (
       className="giphy-embed"
       allowFullScreen
     />
-    {props.user && <Button onClick={() => props.addToLibrary(props.embed_url)}>Add to library</Button>}
+    {(props.user && !props.gifs.includes(props.embed_url)) && <Button onClick={() => props.addToLibrary(props.embed_url)}>Add to library</Button>}
+    {(props.user && props.gifs.includes(props.embed_url)) && <Button onClick={() => props.removeFromLibrary(props.embed_url)}>Remove from library</Button>}
   </div>
 );
 
 export const mapDispatchToProps = (dispatch: Dispatch<UsersAction>) =>
 bindActionCreators(
   {
-    addToLibrary: addToLibrary
+    addToLibrary: addToLibrary,
+    removeFromLibrary: removeFromLibrary
   },
   dispatch
 );
 
 const mapStateToProps = (state: UserState) => ({
-  user: state.user
+  user: state.user,
+  gifs: state.gifs
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GifContainer);
